@@ -15,9 +15,7 @@ import (
 
 const (
 	version = "0.0.1"
-	
 	defaultRegion	= "us-east-1"
-
 	runtimeMacOS = "darwin"
 )
 
@@ -32,11 +30,10 @@ var (
 
 var rootCmd = &cobra.Command{
 	Use: "sage",
-	Short: "Deploy machine learning training jobs, endpoints and notebooks from your command line",
-	Long: `Deploy machine learning training jobs, endpoints and notebooks from your command line
+	Short: "Deploy and manage machine learning training jobs, endpoints and notebooks from your command line",
+	Long: `Deploy and manage machine learning training jobs, endpoints and notebooks from your command line
 	
-sage is a command-line interface to manage hosted notebook environments, launch data
-labeling jobs, train machine learning models, deploy machine leanring model enpoints using 
+sage is a command-line interface to manage hosted notebook environments, train machine learning models, deploy machine leanring model enpoints using 
 AWS Sagemaker.`,
 	PersistentPreRun: func(cmd *cobra.Command, args []string) {
 		output = ConsoleOutput{}
