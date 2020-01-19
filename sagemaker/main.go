@@ -11,9 +11,9 @@ import (
 	"github.com/aws/aws-sdk-go/service/sagemaker/sagemakeriface"
 )
 
-// Client represnts a method for accesseing Sagemaker.
+// Client represnts a method for accessing Sagemaker.
 type Client interface {
-	DescribeNotebooks() (Notebooks, error)
+	ListNotebookInstances() (NotebookInstances, error)
 }
 
 // SDKClient implements access to Sagemaker via the AWS SDK.
