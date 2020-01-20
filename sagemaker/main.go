@@ -1,9 +1,8 @@
 // Package sagemaker is a client for AWS Sagemaker.
 package sagemaker
 
-
 //go:generate mockgen -package client -destination=mock/client/client.go github.com/garretthoffman/sagecli/sagemaker Client
-//go:generate mockgen -package sdk -source ../vendor/github.com/aws/aws-sdk-go/service/sagemaker/sagemakeriface/interface.go -destination=mock/sdk/sagemakeriface.go github.com/aws/aws-sdk-go/service/sagemaker/sagemakeriface SageMakerAPI
+//go:generate mockgen -package sdk -destination=mock/sdk/sagemakeriface.go github.com/aws/aws-sdk-go/service/sagemaker/sagemakeriface SageMakerAPI
 
 import (
 	"github.com/aws/aws-sdk-go/aws/session"

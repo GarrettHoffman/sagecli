@@ -4,6 +4,7 @@ go 1.13
 
 require (
 	github.com/aws/aws-sdk-go v1.25.16
+	github.com/golang/mock v1.3.1
 	github.com/kyokomi/emoji v2.1.0+incompatible
 	github.com/mattn/go-colorable v0.1.4 // indirect
 	github.com/mgutz/ansi v0.0.0-20170206155736-9520e82c474b
