@@ -9,7 +9,7 @@ import (
 
 type notebookListOperation struct {
 	sagemaker sagemaker.Client
-	output Output
+	output    Output
 }
 
 func (o notebookListOperation) execute() {
@@ -59,14 +59,13 @@ func (o notebookListOperation) find() (sagemaker.NotebookInstances, error) {
 	return notebookInstances, nil
 }
 
-
 var notebookListCmd = &cobra.Command{
-	Use:	"list",
-	Short:	"List sagemaker notebook instances",
-	Run:	func(cmd *cobra.Command, args []string) {
+	Use:   "list",
+	Short: "List sagemaker notebook instances",
+	Run: func(cmd *cobra.Command, args []string) {
 		notebookListOperation{
-			sagemaker:	sagemaker.New(sess),
-			output: output,
+			sagemaker: sagemaker.New(sess),
+			output:    output,
 		}.execute()
 	},
 }

@@ -19,7 +19,7 @@ func (o notebookDescribeOperation) execute() {
 	notebookInstance, err := o.sagemaker.DescribeNotebookInstance(o.notebookInstanceName)
 
 	if err != nil {
-		console.Error(err, "Could not describe notebook instance %s, %v", o.notebookInstanceName)
+		console.Error(err, "Could not describe notebook instance %s", o.notebookInstanceName)
 		return
 	}
 

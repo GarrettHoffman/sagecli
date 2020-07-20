@@ -13,7 +13,7 @@ import (
 	sagemakerMockClient "github.com/garretthoffman/sagecli/sagemaker/mock/client"
 )
 
-func TestNotebookInstanceOperation(t *testing.T) {
+func TestListNotebookInstanceOperation(t *testing.T) {
 	mockCtrl := gomock.NewController(t)
 	defer mockCtrl.Finish()
 
@@ -102,7 +102,7 @@ func TestNotebookInstanceOperation(t *testing.T) {
 	}
 }
 
-func TestNotebookInstanceOperationListError(t *testing.T) {
+func TestListNotebookInstanceOperationError(t *testing.T) {
 	mockCtrl := gomock.NewController(t)
 	defer mockCtrl.Finish()
 
@@ -125,7 +125,7 @@ func TestNotebookInstanceOperationListError(t *testing.T) {
 	}
 }
 
-func TestNotebookInstanceOperationNoneFound(t *testing.T) {
+func TestListNotebookInstanceOperationNoneFound(t *testing.T) {
 	mockCtrl := gomock.NewController(t)
 	defer mockCtrl.Finish()
 
