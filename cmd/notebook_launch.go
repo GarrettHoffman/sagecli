@@ -23,7 +23,8 @@ func (o notebookLaunchOperation) execute() {
 	}
 
 	if notebookInstance.NotebookInstanceStatus != "InService" {
-		console.Info("Notebook status must be InService to launch Jupyter, run sage notebook start %s", o.notebookInstanceName)
+		console.Info("Notebook instance status must be InService to launch Jupyter, run sage notebook start %s", o.notebookInstanceName)
+		return
 	}
 
 	jupyterLab := "https://" + notebookInstance.Url + "/lab"

@@ -16,6 +16,7 @@ type Client interface {
 	DescribeNotebookInstance(string) (NotebookInstance, error)
 	StartNotebookInstance(string) error
 	StopNotebookInstance(string) error
+	DeleteNotebookInstance(string) error
 }
 
 // SDKClient implements access to Sagemaker via the AWS SDK.

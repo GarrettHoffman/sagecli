@@ -62,6 +62,14 @@ func (sagemaker SDKClient) StopNotebookInstance(name string) error {
 	)
 }
 
+func (sagemaker SDKClient) DeleteNotebookInstance(name string) error {
+	return sagemaker.deleteNotebookInstance(
+		&awsSagemaker.DeleteNotebookInstanceInput{
+			NotebookInstanceName: &name,
+		},
+	)
+}
+
 func (sagemaker SDKClient) listNotebookInstances(i *awsSagemaker.ListNotebookInstancesInput) (NotebookInstances, error) {
 	var notebookInstances NotebookInstances
 
@@ -127,5 +135,10 @@ func (sagemaker SDKClient) startNotebookInstance(i *awsSagemaker.StartNotebookIn
 
 func (sagemaker SDKClient) stopNotebookInstance(i *awsSagemaker.StopNotebookInstanceInput) error {
 	_, err := sagemaker.client.StopNotebookInstance(i)
+	return err
+}
+
+func (sagemaker SDKClient) deleteNotebookInstance(i *awsSagemaker.DeleteNotebookInstanceInput) error {
+	_, err := sagemaker.client.DeleteNotebookInstance(i)
 	return err
 }

@@ -8,12 +8,12 @@ import (
 	"github.com/spf13/cobra"
 )
 
-type notebookStartOperation struct {
+type notebookDeleteOperation struct {
 	sagemaker            sagemaker.Client
 	notebookInstanceName string
 }
 
-func (o notebookStartOperation) execute() {
+func (o notebookDeleteOperation) execute() {
 	console.Debug("Describing Notebook Instance: %s [API=sagemaker Action=DescribeNotebookInstance]", o.notebookInstanceName)
 	notebookInstance, err := o.sagemaker.DescribeNotebookInstance(o.notebookInstanceName)
 
@@ -23,22 +23,20 @@ func (o notebookStartOperation) execute() {
 	}
 
 	if notebookInstance.NotebookInstanceStatus != "Stopped" {
-		console.Info("Notebook %s is not currently stopped", o.notebookInstanceName)
+		console.Info("Notebook instance status must be Stopped to delete status, run sage notebook stop %s", o.notebookInstanceName)
 		return
 	}
 
-	console.Debug("Describing Notebook Instance: %s [API=sagemaker Action=StartNotebookInstance]", o.notebookInstanceName)
-	err = o.sagemaker.StartNotebookInstance(o.notebookInstanceName)
+	console.Debug("Describing Notebook Instance: %s [API=sagemaker Action=DeleteNotebookInstance]", o.notebookInstanceName)
+	err = o.sagemaker.DeleteNotebookInstance(o.notebookInstanceName)
 
 	if err != nil {
-		console.Error(err, "Error starting notebook instance %s", o.notebookInstanceName)
+		console.Error(err, "Error deleting notebook instance %s", o.notebookInstanceName)
 		return
 	}
 
-	console.Info("Starting notebook instance %s", o.notebookInstanceName)
-
-	notebookStatus := "Pending"
-	for notebookStatus != "InService" {
+	console.Info("Deleting notebook instance %s", o.notebookInstanceName)
+	for {
 		time.Sleep(5000000000)
 		print(".")
 
@@ -46,23 +44,19 @@ func (o notebookStartOperation) execute() {
 		notebookInstance, err = o.sagemaker.DescribeNotebookInstance(o.notebookInstanceName)
 
 		if err != nil {
-			console.Error(err, "Error fetching notebook instance status")
+			print("\n")
+			console.Info("Notebook instance %s deleted", o.notebookInstanceName)
 			return
 		}
-
-		notebookStatus = notebookInstance.NotebookInstanceStatus
 	}
-
-	print("\n")
-	console.Info("Notebook instance %s started", o.notebookInstanceName)
 }
 
-var notebookStartCmd = &cobra.Command{
-	Use:   "start <notebook-instance-name>",
-	Short: "Start notebook instance",
+var notebookDeleteCmd = &cobra.Command{
+	Use:   "delete <notebook-instance-name>",
+	Short: "Delete notebook instance",
 	Args:  cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
-		notebookStartOperation{
+		notebookDeleteOperation{
 			sagemaker:            sagemaker.New(sess),
 			notebookInstanceName: args[0],
 		}.execute()
@@ -70,5 +64,5 @@ var notebookStartCmd = &cobra.Command{
 }
 
 func init() {
-	notebookCmd.AddCommand(notebookStartCmd)
+	notebookCmd.AddCommand(notebookDeleteCmd)
 }

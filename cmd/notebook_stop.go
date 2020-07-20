@@ -14,7 +14,21 @@ type notebookStopOperation struct {
 }
 
 func (o notebookStopOperation) execute() {
-	err := o.sagemaker.StopNotebookInstance(o.notebookInstanceName)
+	console.Debug("Describing Notebook Instance: %s [API=sagemaker Action=DescribeNotebookInstance]", o.notebookInstanceName)
+	notebookInstance, err := o.sagemaker.DescribeNotebookInstance(o.notebookInstanceName)
+
+	if err != nil {
+		console.Error(err, "No notebook instance %s", o.notebookInstanceName)
+		return
+	}
+
+	if notebookInstance.NotebookInstanceStatus != "InService" {
+		console.Info("Notebook %s is not currently in service", o.notebookInstanceName)
+		return
+	}
+
+	console.Debug("Describing Notebook Instance: %s [API=sagemaker Action=StopNotebookInstance]", o.notebookInstanceName)
+	err = o.sagemaker.StopNotebookInstance(o.notebookInstanceName)
 
 	if err != nil {
 		console.Error(err, "Error stopping notebook instance %s", o.notebookInstanceName)
@@ -28,7 +42,8 @@ func (o notebookStopOperation) execute() {
 		time.Sleep(5000000000)
 		print(".")
 
-		notebookInstance, err := o.sagemaker.DescribeNotebookInstance(o.notebookInstanceName)
+		console.Debug("Describing Notebook Instance: %s [API=sagemaker Action=DescribeNotebookInstance]", o.notebookInstanceName)
+		notebookInstance, err = o.sagemaker.DescribeNotebookInstance(o.notebookInstanceName)
 
 		if err != nil {
 			console.Error(err, "Error fetching notebook instance status")
