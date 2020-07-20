@@ -6,10 +6,11 @@ package sdk
 
 import (
 	context "context"
+	reflect "reflect"
+
 	request "github.com/aws/aws-sdk-go/aws/request"
 	sagemaker "github.com/aws/aws-sdk-go/service/sagemaker"
 	gomock "github.com/golang/mock/gomock"
-	reflect "reflect"
 )
 
 // MockSageMakerAPI is a mock of SageMakerAPI interface

@@ -5,11 +5,11 @@ import (
 )
 
 var modelCmd = &cobra.Command{
-	Use:	"model",
-	Short:	"Manage trained models",
+	Use:   "model",
+	Short: "Manage trained models",
 
 	//TODO: add long description
-	Long: 	`Manage trained models`,
+	Long: `Manage trained models`,
 }
 
 func init() {

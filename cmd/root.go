@@ -1,35 +1,36 @@
 package cmd
+
 // taken from github.com/awslabs/fargatecli for now to get started
 
 import (
-  "os"
-  "runtime"
-  
-  "github.com/aws/aws-sdk-go/aws"
-  "github.com/aws/aws-sdk-go/aws/awserr"
-  "github.com/aws/aws-sdk-go/aws/session"
-  "github.com/garretthoffman/sagecli/console"
-  "github.com/spf13/cobra"
-  "golang.org/x/crypto/ssh/terminal"
+	"os"
+	"runtime"
+
+	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/aws/awserr"
+	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/garretthoffman/sagecli/console"
+	"github.com/spf13/cobra"
+	"golang.org/x/crypto/ssh/terminal"
 )
 
 const (
-	version = "0.0.1"
-	defaultRegion	= "us-east-1"
-	runtimeMacOS = "darwin"
+	version       = "0.0.1"
+	defaultRegion = "us-east-1"
+	runtimeMacOS  = "darwin"
 )
 
 var (
-	noColor	bool
-	noEmoji	bool
-	output	ConsoleOutput
-	region 	string
-	sess 	*session.Session
-	verbose	bool
+	noColor bool
+	noEmoji bool
+	output  ConsoleOutput
+	region  string
+	sess    *session.Session
+	verbose bool
 )
 
 var rootCmd = &cobra.Command{
-	Use: "sage",
+	Use:   "sage",
 	Short: "Deploy and manage machine learning training jobs, endpoints and notebooks from your command line",
 	Long: `Deploy and manage machine learning training jobs, endpoints and notebooks from your command line
 	
@@ -68,7 +69,7 @@ AWS Sagemaker.`,
 			} else if envAwsRegion != "" {
 				region = envAwsRegion
 			} else {
-			  	if sess = session.Must(session.NewSession()); *sess.Config.Region != "" {
+				if sess = session.Must(session.NewSession()); *sess.Config.Region != "" {
 					region = *sess.Config.Region
 				} else {
 					region = defaultRegion
@@ -79,7 +80,7 @@ AWS Sagemaker.`,
 		config := &aws.Config{
 			Region: aws.String(region),
 		}
-			
+
 		if verbose {
 			config.LogLevel = aws.LogLevel(aws.LogDebugWithHTTPBody)
 		}

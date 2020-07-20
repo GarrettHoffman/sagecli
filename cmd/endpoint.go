@@ -5,11 +5,11 @@ import (
 )
 
 var endpointCmd = &cobra.Command{
-	Use:	"endpoint",
-	Short:	"Manage model endpoints",
+	Use:   "endpoint",
+	Short: "Manage model endpoints",
 
 	//TODO: add long description
-	Long: 	`Manage model enpoints`,
+	Long: `Manage model enpoints`,
 }
 
 func init() {

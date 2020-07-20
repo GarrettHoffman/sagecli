@@ -5,9 +5,10 @@
 package client
 
 import (
+	reflect "reflect"
+
 	sagemaker "github.com/garretthoffman/sagecli/sagemaker"
 	gomock "github.com/golang/mock/gomock"
-	reflect "reflect"
 )
 
 // MockClient is a mock of Client interface
